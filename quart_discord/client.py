@@ -10,10 +10,10 @@ from oauthlib.common import add_params_to_uri, generate_token
 
 
 class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
-    """Main client class representing hypothetical OAuth2 session with discord.
+    """Main client class representing hypothetical OAuth2 session with disnake.
     It uses Quart `session <https://pgjones.gitlab.io/quart/reference/source/quart.sessions.html#quart.sessions.Session>`_
     local proxy object to save state, authorization token and keeps record of users sessions across different requests.
-    This class inherits :py:class:`quart_discord._http.DiscordOAuth2HttpClient` class.
+    This class inherits :py:class:`quart_disnake._http.DiscordOAuth2HttpClient` class.
 
     Parameters
     ----------
@@ -63,15 +63,15 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
 
     async def fetch_lock(self):
         async with self.locksmith_lock:
-            lock = current_app.discord.locks_cache.get(session.get("DISCORD_OAUTH2_TOKEN")["access_token"])
+            lock = current_app.disnake.locks_cache.get(session.get("DISCORD_OAUTH2_TOKEN")["access_token"])
             if lock is None:
                 lock = asyncio.Lock()
-                current_app.discord.locks_cache.update({session.get("DISCORD_OAUTH2_TOKEN")["access_token"]: lock})
+                current_app.disnake.locks_cache.update({session.get("DISCORD_OAUTH2_TOKEN")["access_token"]: lock})
             return lock
 
     async def create_session(
             self, scope: list = None, *, data: dict = None, prompt: bool = True,
-            permissions: typing.Union[discord.Permissions, int] = 0, **params
+            permissions: typing.Union[disnake.Permissions, int] = 0, **params
     ):
         """Primary method used to create OAuth2 session and redirect users for
         authorization code grant.
@@ -83,11 +83,11 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
             <https://discordapp.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes>`_.
         data : dict, optional
             A mapping of your any custom data which you want to access after authorization grant. Use
-            `:py:meth:quart_discord.DiscordOAuth2Session.callback` to retrieve this data in your callback view.
+            `:py:meth:quart_disnake.DiscordOAuth2Session.callback` to retrieve this data in your callback view.
         prompt : bool, optional
             Determines if the OAuth2 grant should be explicitly prompted and re-approved. Defaults to True.
             Specify False for implicit grant which will skip the authorization screen and redirect to redirect URI.
-        permissions: typing.Union[discord.Permissions, int], optional
+        permissions: typing.Union[disnake.Permissions, int], optional
             An optional parameter determining guild permissions of the bot while adding it to a guild using
             discord OAuth2 with `bot` scope. It is same as generating so called *bot invite link* which redirects
             to your callback endpoint after bot authorization flow. Defaults to 0 or no permissions.
@@ -118,9 +118,9 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
         params = params or dict()
         params["prompt"] = "consent" if prompt else "none"
         if "bot" in scope:
-            if not isinstance(permissions, (discord.Permissions, int)):
-                raise ValueError(f"Passed permissions must be an int or discord.Permissions, not {type(permissions)}.")
-            if isinstance(permissions, discord.Permissions):
+            if not isinstance(permissions, (disnake.Permissions, int)):
+                raise ValueError(f"Passed permissions must be an int or disnake.Permissions, not {type(permissions)}.")
+            if isinstance(permissions, disnake.Permissions):
                 permissions = permissions.value
             params["permissions"] = permissions
             try:
@@ -137,7 +137,7 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
         Meaning by default, it uses client side session handling.
 
         Override this method if you want to handle the user's session server side. If this method is overridden then,
-        you must also override :py:meth:`quart_discord.DiscordOAuth2Session.get_authorization_token`.
+        you must also override :py:meth:`quart_disnake.DiscordOAuth2Session.get_authorization_token`.
 
         """
         session["DISCORD_OAUTH2_TOKEN"] = token
@@ -145,7 +145,7 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
     @staticmethod
     async def get_authorization_token() -> dict:
         """A static method which returns a dict containing Discord OAuth2 token and other secrets which was saved
-        previously by `:py:meth:`quart_discord.DiscordOAuth2Session.save_authorization_token` from user's cookies.
+        previously by `:py:meth:`quart_disnake.DiscordOAuth2Session.save_authorization_token` from user's cookies.
 
         You must override this method if you are implementing server side session handling.
 
@@ -198,10 +198,10 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
 
         Returns
         -------
-        quart_discord.models.User
+        quart_disnake.models.User
 
         """
-        if current_app.discord.locks_cache is None:
+        if current_app.disnake.locks_cache is None:
             return models.User.get_from_cache() or await models.User.fetch_from_api()
 
         lock = await self.fetch_lock()
@@ -216,7 +216,7 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
         Returns
         -------
         list
-            List of :py:class:`quart_discord.models.UserConnection` objects.
+            List of :py:class:`quart_disnake.models.UserConnection` objects.
 
         """
         user = models.User.get_from_cache()
@@ -240,10 +240,10 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
         Returns
         -------
         list
-            List of :py:class:`quart_discord.models.Guild` objects.
+            List of :py:class:`quart_disnake.models.Guild` objects.
 
         """
-        if current_app.discord.locks_cache is None:
+        if current_app.disnake.locks_cache is None:
             if use_cache:
                 user = models.User.get_from_cache()
                 try:
