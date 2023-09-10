@@ -63,10 +63,10 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
 
     async def fetch_lock(self):
         async with self.locksmith_lock:
-            lock = current_app.disnake.locks_cache.get(session.get("DISCORD_OAUTH2_TOKEN")["access_token"])
+            lock = current_app.discord.locks_cache.get(session.get("DISCORD_OAUTH2_TOKEN")["access_token"])
             if lock is None:
                 lock = asyncio.Lock()
-                current_app.disnake.locks_cache.update({session.get("DISCORD_OAUTH2_TOKEN")["access_token"]: lock})
+                current_app.discord.locks_cache.update({session.get("DISCORD_OAUTH2_TOKEN")["access_token"]: lock})
             return lock
 
     async def create_session(
@@ -201,7 +201,7 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
         quart_disnake.models.User
 
         """
-        if current_app.disnake.locks_cache is None:
+        if current_app.discord.locks_cache is None:
             return models.User.get_from_cache() or await models.User.fetch_from_api()
 
         lock = await self.fetch_lock()
@@ -243,7 +243,7 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
             List of :py:class:`quart_disnake.models.Guild` objects.
 
         """
-        if current_app.disnake.locks_cache is None:
+        if current_app.dicord.locks_cache is None:
             if use_cache:
                 user = models.User.get_from_cache()
                 try:
