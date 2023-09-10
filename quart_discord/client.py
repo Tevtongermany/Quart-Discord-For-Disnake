@@ -1,7 +1,7 @@
 import jwt
 import typing
 import asyncio
-import discord
+import disnake
 
 from . import configs, _http, models, utils, exceptions
 
