@@ -243,7 +243,7 @@ class DiscordOAuth2Session(_http.DiscordOAuth2HttpClient):
             List of :py:class:`quart_disnake.models.Guild` objects.
 
         """
-        if current_app.dicord.locks_cache is None:
+        if current_app.discord.locks_cache is None:
             if use_cache:
                 user = models.User.get_from_cache()
                 try:
