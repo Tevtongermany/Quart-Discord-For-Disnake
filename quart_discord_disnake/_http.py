@@ -15,7 +15,7 @@ from async_oauthlib import OAuth2Session
 
 class DiscordOAuth2HttpClient(abc.ABC):
     """An OAuth2 http abstract base class providing some factory methods.
-    This class is meant to be overridden by :py:class:`quart_discord.DiscordOAuth2Session` and should not be
+    This class is meant to be overridden by :py:class:`quart_discord_disnake.DiscordOAuth2Session` and should not be
     used directly.
 
     """
@@ -133,10 +133,10 @@ class DiscordOAuth2HttpClient(abc.ABC):
 
         Raises
         ------
-        quart_discord.Unauthorized
-            Raises :py:class:`quart_discord.Unauthorized` if current user is not authorized.
-        quart_discord.RateLimited
-            Raises an instance of :py:class:`quart_discord.RateLimited` if application is being rate limited by Discord.
+        quart_discord_disnake.Unauthorized
+            Raises :py:class:`quart_discord_disnake.Unauthorized` if current user is not authorized.
+        quart_discord_disnake.RateLimited
+            Raises an instance of :py:class:`quart_discord_disnake.RateLimited` if application is being rate limited by Discord.
 
         """
         route = configs.DISCORD_API_BASE_URL + route
@@ -174,10 +174,10 @@ class DiscordOAuth2HttpClient(abc.ABC):
 
         Raises
         ------
-        quart_discord.Unauthorized
-            Raises :py:class:`quart_discord.Unauthorized` if current user is not authorized.
-        quart_discord.RateLimited
-            Raises an instance of :py:class:`quart_discord.RateLimited` if application is being rate limited by Discord.
+        quart_discord_disnake.Unauthorized
+            Raises :py:class:`quart_discord_disnake.Unauthorized` if current user is not authorized.
+        quart_discord_disnake.RateLimited
+            Raises an instance of :py:class:`quart_discord_disnake.RateLimited` if application is being rate limited by Discord.
 
         """
         headers = {"Authorization": f"Bot {self.__bot_token}"}

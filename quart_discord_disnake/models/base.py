@@ -23,7 +23,7 @@ class DiscordModelsBase(metaclass=DiscordModelsMeta):
 
     @staticmethod
     async def _request(*args, **kwargs):
-        """A shorthand to :py:func:quart_discord.request`. It uses Quart current_app local proxy to get the
+        """A shorthand to :py:func:quart_discord_disnake.request`. It uses Quart current_app local proxy to get the
         Quart-Discord client.
 
         """
@@ -31,7 +31,7 @@ class DiscordModelsBase(metaclass=DiscordModelsMeta):
 
     @staticmethod
     async def _bot_request(*args, **kwargs):
-        """A shorthand to :py:func:quart_discord.bot_request`."""
+        """A shorthand to :py:func:quart_discord_disnake.bot_request`."""
         return await current_app.discord.bot_request(*args, **kwargs)
 
     @classmethod

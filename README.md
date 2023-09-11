@@ -12,18 +12,19 @@ python3 -m pip install Quart-Discord
 
 
 ### Basic Example
+
 ```python
 from quart import Quart, redirect, url_for
-from quart_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
+from quart_discord_disnake import DiscordOAuth2Session, requires_authorization, Unauthorized
 
 app = Quart(__name__)
 
 app.secret_key = b"random bytes representing quart secret key"
 
-app.config["DISCORD_CLIENT_ID"] = 490732332240863233    # Discord client ID.
-app.config["DISCORD_CLIENT_SECRET"] = ""                # Discord client secret.
-app.config["DISCORD_REDIRECT_URI"] = ""                 # URL to your callback endpoint.
-app.config["DISCORD_BOT_TOKEN"] = ""                    # Required to access BOT resources.
+app.config["DISCORD_CLIENT_ID"] = 490732332240863233  # Discord client ID.
+app.config["DISCORD_CLIENT_SECRET"] = ""  # Discord client secret.
+app.config["DISCORD_REDIRECT_URI"] = ""  # URL to your callback endpoint.
+app.config["DISCORD_BOT_TOKEN"] = ""  # Required to access BOT resources.
 
 discord = DiscordOAuth2Session(app)
 
@@ -31,7 +32,7 @@ discord = DiscordOAuth2Session(app)
 @app.route("/login/")
 async def login():
     return await discord.create_session()
-	
+
 
 @app.route("/callback/")
 async def callback():
@@ -43,7 +44,7 @@ async def callback():
 async def redirect_unauthorized(e):
     return redirect(url_for("login"))
 
-	
+
 @app.route("/me/")
 @requires_authorization
 async def me():

@@ -14,16 +14,16 @@ import os
 import re
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-sys.path.append('../quart_discord/')
+sys.path.append('../quart_discord_disnake/')
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'Quart-Discord'
+project = 'Quart-Discord-Disnake'
 copyright = '2020, Philip Dowie'
 author = 'Philip Dowie'
 
-with open('../quart_discord/__init__.py') as f:
+with open('../quart_discord_disnake/__init__.py') as f:
     ver = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 # The short X.Y version
 version = ver
