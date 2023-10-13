@@ -56,7 +56,6 @@ class User(DiscordModelsBase):
 
     def __init__(self, payload):
         super().__init__(payload)
-        print(payload)
         self.id = int(self._payload["id"])
         self.username = self._payload["username"]
         self.global_name = self._payload["global_name"]
@@ -73,8 +72,8 @@ class User(DiscordModelsBase):
         self.premium_type = self._payload.get("premium_type")
 
         # Few properties which are intended to be cached.
-        self._guilds = None         # Mapping of guild ID to quart_discord_disnake.models.Guild(...).
-        self.connections = None     # List of quart_discord_disnake.models.UserConnection(...).
+        self._guilds = None  # Mapping of guild ID to quart_discord_disnake.models.Guild(...).
+        self.connections = None  # List of quart_discord_disnake.models.UserConnection(...).
 
     @property
     def guilds(self):
@@ -116,16 +115,22 @@ class User(DiscordModelsBase):
             user_id=self.id, avatar_hash=self.avatar_hash, format=image_format)
 
     @property
-    def bannercolor(self):
-        """A property returning direct URL to user's avatar."""
-        return self.banner_color
-    @property
     def avatar_decoration_url(self):
         """A property returning direct URL to user's avatar decoration."""
         if not self.avatar_decoration:
             return
         return configs.DISCORD_USER_AVATAR_DECORATION_BASE_URL.format(
-            user_id=self.id, avatar_decoration_hash=self.avatar_decoration.get("asset"), format=configs.DISCORD_IMAGE_FORMAT)
+            user_id=self.id, avatar_decoration_hash=self.avatar_decoration.get("asset"),
+            format=configs.DISCORD_IMAGE_FORMAT)
+    @property
+    def has_avatar_decoration(self):
+        """A boolean representing if user has avatar decoration."""
+        return bool(self.avatar_decoration)
+    @property
+    def banner_colour(self):
+        """A property returning direct URL to user's avatar."""
+        return self.banner_color
+
     @property
     def default_avatar_url(self):
         """A property which returns the default avatar URL as when user doesn't has any avatar set."""
