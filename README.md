@@ -1,15 +1,13 @@
-# Quart-Discord
-[![PyPI](https://img.shields.io/pypi/v/Quart-Discord?style=for-the-badge)](https://pypi.org/project/Quart-Discord/) [![Read the Docs](https://img.shields.io/readthedocs/quart-discord?style=for-the-badge)](https://quart-discord.readthedocs.io/en/latest/) 
+# Quard Discord for Disnake
+
 
 Discord OAuth2 extension for Quart.
 
 
 ### Installation
-To install current latest release you can use following command:
-```sh
-python3 -m pip install Quart-Discord
+```bash
+pip install git+https://github.com/Tevtongermany/Quart-Discord-For-Disnake.git
 ```
-
 
 ### Basic Example
 
@@ -71,7 +69,7 @@ For an example to the working application, check [`test_app.py`](tests/test_app.
 * Quart
 * Async-OAuthlib
 * cachetools
-* discord.py
+* disnake
 
 
 ### Documentation

@@ -6,3 +6,4 @@ disnake
 cachetools
 setuptools
 Async-OAuthlib
+python-dotenv

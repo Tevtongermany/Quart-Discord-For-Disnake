@@ -39,12 +39,12 @@ extra_requirements = {
 
 
 setup(
-    name='Quart-Discord-disnake',
+    name='Quart-Discord-For-Disnake',
     version=__get_version(),
-    url='https://github.com/jnawk/Quart-Discord',
+    url='https://github.com/Tevtongermany/Quart-Discord-For-Disnake',
     license='MIT',
-    author='Philip Dowie',
-    author_email='philip@jnawk.nz',
+    author='Tevtongermany',
+    author_email='Tevtongermany@femboy.cx',
     description='Discord OAuth2 extension for Quart.',
     long_description=__doc__,
     packages=find_packages(),

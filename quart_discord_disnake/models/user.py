@@ -56,10 +56,14 @@ class User(DiscordModelsBase):
 
     def __init__(self, payload):
         super().__init__(payload)
+        print(payload)
         self.id = int(self._payload["id"])
         self.username = self._payload["username"]
+        self.global_name = self._payload["global_name"]
         self.discriminator = self._payload["discriminator"]
         self.avatar_hash = self._payload.get("avatar", self.discriminator)
+        self.avatar_decoration = self._payload.get("avatar_decoration_data", self.discriminator)
+        self.banner_color = self._payload.get("banner_color")
         self.bot = self._payload.get("bot", False)
         self.mfa_enabled = self._payload.get("mfa_enabled")
         self.locale = self._payload.get("locale")
@@ -75,7 +79,7 @@ class User(DiscordModelsBase):
     @property
     def guilds(self):
         """A cached mapping of user's guild ID to :py:class:`quart_discord_disnake.Guild`. The guilds are cached when the first
-        API call for guilds is requested so it might be an empty dict.
+        API call for guilds is requested, so it might be an empty dict.
 
         """
         try:
@@ -111,6 +115,17 @@ class User(DiscordModelsBase):
         return configs.DISCORD_USER_AVATAR_BASE_URL.format(
             user_id=self.id, avatar_hash=self.avatar_hash, format=image_format)
 
+    @property
+    def bannercolor(self):
+        """A property returning direct URL to user's avatar."""
+        return self.banner_color
+    @property
+    def avatar_decoration_url(self):
+        """A property returning direct URL to user's avatar decoration."""
+        if not self.avatar_decoration:
+            return
+        return configs.DISCORD_USER_AVATAR_DECORATION_BASE_URL.format(
+            user_id=self.id, avatar_decoration_hash=self.avatar_decoration.get("asset"), format=configs.DISCORD_IMAGE_FORMAT)
     @property
     def default_avatar_url(self):
         """A property which returns the default avatar URL as when user doesn't has any avatar set."""

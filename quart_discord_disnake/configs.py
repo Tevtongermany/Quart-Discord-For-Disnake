@@ -24,6 +24,7 @@ DISCORD_EMBED_BASE_BASE_URL = "https://cdn.discordapp.com/"
 DISCORD_IMAGE_FORMAT = "png"
 DISCORD_ANIMATED_IMAGE_FORMAT = "gif"
 DISCORD_USER_AVATAR_BASE_URL = DISCORD_IMAGE_BASE_URL + "avatars/{user_id}/{avatar_hash}.{format}"
+DISCORD_USER_AVATAR_DECORATION_BASE_URL = DISCORD_IMAGE_BASE_URL + "avatar-decoration-presets/{avatar_decoration_hash}.{format}"
 DISCORD_DEFAULT_USER_AVATAR_BASE_URL = DISCORD_EMBED_BASE_BASE_URL + "embed/avatars/{modulo5}.png"
 DISCORD_GUILD_ICON_BASE_URL = DISCORD_IMAGE_BASE_URL + "icons/{guild_id}/{icon_hash}.png"
 
