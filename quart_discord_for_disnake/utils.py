@@ -35,7 +35,7 @@ def json_bool(value):
 # Decorators.
 
 def requires_authorization(view):
-    """A decorator for quart views which raises exception :py:class:`quart_discord_disnake.Unauthorized` if the user
+    """A decorator for quart views which raises exception :py:class:`quart_discord_for_disnake.Unauthorized` if the user
     is not authorized from Discord OAuth2.
 
     """

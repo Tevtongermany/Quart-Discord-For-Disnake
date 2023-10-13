@@ -68,18 +68,18 @@ class Guild(DiscordModelsBase):
     @classmethod
     async def fetch_from_api(cls, cache=True):
         """A class method which returns an instance or list of instances of this model by implicitly making an
-        API call to Discord. If an instance of :py:class:`quart_discord_disnake.User` exists in the users internal cache
-        who belongs to these guilds then, the cached property :py:attr:`quart_discord_disnake.User.guilds` is updated.
+        API call to Discord. If an instance of :py:class:`quart_discord_for_disnake.User` exists in the users internal cache
+        who belongs to these guilds then, the cached property :py:attr:`quart_discord_for_disnake.User.guilds` is updated.
 
         Parameters
         ----------
         cache : bool
-            Determines if the :py:attr:`quart_discord_disnake.User.guilds` cache should be updated with the new guilds.
+            Determines if the :py:attr:`quart_discord_for_disnake.User.guilds` cache should be updated with the new guilds.
 
         Returns
         -------
-        list[quart_discord_disnake.Guild, ...]
-            List of instances of :py:class:`quart_discord_disnake.Guild` to which this user belongs.
+        list[quart_discord_for_disnake.Guild, ...]
+            List of instances of :py:class:`quart_discord_for_disnake.Guild` to which this user belongs.
 
         """
         guilds = await super().fetch_from_api()

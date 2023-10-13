@@ -13,7 +13,7 @@ pip install git+https://github.com/Tevtongermany/Quart-Discord-For-Disnake.git
 
 ```python
 from quart import Quart, redirect, url_for
-from quart_discord_disnake import DiscordOAuth2Session, requires_authorization, Unauthorized
+from quart_discord_for_disnake import DiscordOAuth2Session, requires_authorization, Unauthorized
 
 app = Quart(__name__)
 

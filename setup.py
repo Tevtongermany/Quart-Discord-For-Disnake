@@ -12,7 +12,7 @@ from setuptools import setup, find_packages
 
 
 def __get_version():
-    with open("quart_discord_disnake/__init__.py") as package_init_file:
+    with open("quart_discord_for_disnake/__init__.py") as package_init_file:
         return re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', package_init_file.read(), re.MULTILINE).group(1)
 
 
